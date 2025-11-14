@@ -57,7 +57,7 @@ INVALID_IDSTART ({DIGIT}|_)({LETTER}|{DIGIT}|_)*
 "<"             { printf("LT\n"); update_col(); return LT; }
 ">"             { printf("GT\n"); update_col(); return GT; }
 ";"             { printf("SEMICOLON\n"); update_col(); return (';'); }
-":"             { printf("COLON\n"); update_col(); return (':'); }
+":"             { printf("COLON\n"); update_col(); return COLON; }
 ","             { printf("COMMA\n"); update_col(); return (','); }
 "("             { printf("L_PAREN\n"); update_col(); return ('('); }
 ")"             { printf("R_PAREN\n"); update_col(); return (')'); }
@@ -66,7 +66,7 @@ INVALID_IDSTART ({DIGIT}|_)({LETTER}|{DIGIT}|_)*
 {NUMBER} {
     printf("NUMBER %s\n", yytext);
     update_col();
-    yylval=atoi(yytext);
+    yylval.ival=atoi(yytext);
     return NUMBER;
 }
 
@@ -99,7 +99,7 @@ INVALID_IDSTART ({DIGIT}|_)({LETTER}|{DIGIT}|_)*
 
 %%
 
-int main(int argc, char *argv[]) {
+/*int main(int argc, char *argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <input_file>\n", argv[0]);
         return 1;
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
     yylex();
     fclose(yyin);
     return 0;
-}
+}*/
 
 int yywrap() {
     return 1;
