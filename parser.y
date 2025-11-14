@@ -39,6 +39,7 @@ declarations:
 declaration:
     multi_id COLON INTEGER ';'
     | multi_id COLON ARRAY '(' NUMBER ')' OF INTEGER ';'
+    |error {yyerror("invalid declaration"); yyerrok; yyclearin;}
     ;
 
 multi_id:
@@ -81,7 +82,7 @@ loop:
     ;
 
 assignment: variable ASSIGN expression ';'
-          | variable EQ expression ';'  {yyerror(" \":=\" expected");}
+          | error   {yyerror(" \":=\" expected"); yyerrok; yyclearin; }
     ;
 
 variable_list:
